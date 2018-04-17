@@ -29,7 +29,7 @@
 				text="Name"
 				/>
 		<TextField 
-				id="textEditUserName"  />		
+				fx:id="txtName"  />		
 	</HBox>
     <VBox GridPane.columnIndex="1"
           GridPane.rowIndex="3"

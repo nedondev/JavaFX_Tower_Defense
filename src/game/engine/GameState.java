@@ -26,7 +26,7 @@ public class GameState implements Serializable{
     private int lives;                     //numbers of monster escapes allowed before game ends
     private ArrayList<Tower> playerTowers;  //holds all tower references on the map
     private ArrayList<Monster> monstersAlive; //holds monster references
-
+    private String name;
 
     //CONSTRUCTORS
     private GameState(){
@@ -82,6 +82,14 @@ public class GameState implements Serializable{
     }
     public int getState() {
         return state;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isPaused(){

@@ -44,9 +44,10 @@ public class GameManager {
      *
      * @throws java.io.IOException
      */
-    public void initialize() throws java.io.IOException{
+    public void initialize(String name) throws java.io.IOException{
         // Initializes the game state
         game = GameState.getNewGame();
+        game.setName(name);
 
         // Generates the map with the given resolution
         gameMap = new TileMap(1280 ,800);
