@@ -36,7 +36,7 @@ public class Monster {
         moveX = true;
         nodeDirection = 1;
         this.healthPoints = healthPoints;
-        movementSpeed = 1;
+        movementSpeed = 2;
         reward = 2;
         view = new Circle(path.get(0).getExactX() , path.get(0).getExactY() , radius);
         view.setFill(Color.RED);
@@ -96,16 +96,22 @@ public class Monster {
      * monster's healthPoints reach 0.
      */
     public void updateLocation(int distance){
+        distance = movementSpeed * distance;
 
+        /*
+        System.out.println("VX = "+ view.getCenterX() +"VY = "+ view.getCenterY());
+        System.out.println("EX = "+ path.get(nodeDirection).getExactX() +"EY = "+ path.get(nodeDirection).getExactY());
+        System.out.println("node direction: " + nodeDirection);
+        System.out.println("path.size(): " + path.size());*/
         // Move along the x axis
         if(moveX){
             view.setCenterX(view.getCenterX() + distance);
             // Reached a changing point in path , switch direction
-            if(view.getCenterX() == path.get(nodeDirection).getExactX()){
+            if(view.getCenterX() >= path.get(nodeDirection).getExactX() - movementSpeed){
                 moveX = false;
                 nodeDirection++;
                 // Traversed all changing points, path ended
-                if(nodeDirection == path.size()){
+                if(nodeDirection >= path.size()){
                     pathFinished = true;
                     isDead = true;
                 }
@@ -115,19 +121,27 @@ public class Monster {
         else{
             if(view.getCenterY() < path.get(nodeDirection).getExactY()) {
                 view.setCenterY(view.getCenterY() + distance);
+                if(view.getCenterY() >= path.get(nodeDirection).getExactY()){
+                    moveX = true;
+                    nodeDirection++;
+                    if(nodeDirection >= path.size()){
+                        pathFinished = true;
+                        isDead = true;
+                    }
+                }
             }
             else{
                 view.setCenterY(view.getCenterY() - distance);
-            }
-            // Reach changing point , switch direction
-            if(view.getCenterY() == path.get(nodeDirection).getExactY()){
-                moveX = true;
-                nodeDirection++;
-                if(nodeDirection == path.size()){
-                    pathFinished = true;
-                    isDead = true;
+                if(view.getCenterY() <= path.get(nodeDirection).getExactY()){
+                    moveX = true;
+                    nodeDirection++;
+                    if(nodeDirection == path.size()){
+                        pathFinished = true;
+                        isDead = true;
+                    }
                 }
             }
+            // Reach changing point , switch direction
         }
     }
 

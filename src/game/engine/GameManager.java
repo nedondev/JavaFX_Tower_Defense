@@ -22,7 +22,9 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import javafx.application.Platform;
 
 /**
  * Responsible for all communications between user interface and underlying
@@ -227,10 +229,20 @@ public class GameManager {
      * Stops the game. Used when the player chooses to quit
      * or the losing conditions are met.
      */
-    public void stopGame(){
+    public void stopGame()throws java.io.IOException{
         pauseGame();
         game.setState(GameState.IS_STOPPED);
         gameLoop.stop();
+        if(game.getLives() == 0){
+            FXMLLoader loader = new FXMLLoader(MenuNavigator.GAMEOVERUI);
+            StackPane gamePane = new StackPane();
+            Node gameUI = (Node)loader.load(MenuNavigator.GAMEOVERUI.openStream());
+            gamePane.getChildren().add(gameUI);
+            gameScene = new Scene(gamePane);
+            gameScene.getStylesheets().add(GameManager.class.getResource("res/menu/gameover.css").toExternalForm());
+
+            MenuNavigator.stage.setScene(gameScene);
+        }
     }
 
     /**
@@ -247,7 +259,6 @@ public class GameManager {
     public void resumeGame(){
         game.setState(GameState.IS_RUNNING);
     }
-
 
     /**
      * Removes a monster from the graphical interface and from the reference
@@ -284,23 +295,36 @@ public class GameManager {
         final LongProperty secondUpdate = new SimpleLongProperty(0);
         final LongProperty fpstimer = new SimpleLongProperty(0);
         final AnimationTimer timer = new AnimationTimer() {
-            int timer = 10;
+            int timer = 3;
+            //long moreMon = -1;
 
             @Override
             public void handle(long timestamp) {
 
                 // Times each second
-                if (timestamp/ 1000000000 != secondUpdate.get()) {
+                System.out.println(timestamp / 100000000+" "+secondUpdate.get());
+                if (timestamp/ 1000000000 != secondUpdate.get() ) {
                     timer--;
-                    if(timer > 19) {
-                        createMonster(3);
+                    if(timer > 11) {
+                        //moreMon = timestamp/ 100000000 + 2;
+                        createMonster(10);
                     }
                     else if(timer <= 0){
                         game.setLevel(game.getLevel() + 1);
-                        timer = 30;
+                        timer = 13;
                     }
                 }
+                /*if(moreMon == timestamp/ 100000000){
+                    createMonster(3);
+                    moreMon = -1;
+                }*/
                 createProjectiles();
+                if(game.getLives() == 0){
+                    try{
+                        stopGame();
+                    }catch(java.io.IOException e){
+                    }
+                }
                 if(timestamp / 10000000 != fpstimer.get()){
                     updateLocations();
                 }
@@ -310,7 +334,7 @@ public class GameManager {
             }
         };
         gameLoop = timer;
-        timer.start();
+        gameLoop.start();
     }
 
 }

@@ -9,10 +9,11 @@ import java.io.IOException;
  */
 public class MainMenuController {
 
+    GameManager gameManager = new GameManager();
     public void startNewGame(){
         try{
-            GameManager gameManager = new GameManager();
             gameManager.initialize();}catch (IOException ex){ex.printStackTrace();}
+        System.out.println("stop");
     }
     public void exitGame(){
         System.exit(1);

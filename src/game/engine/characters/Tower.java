@@ -42,7 +42,7 @@ public class Tower {
         projectileList = new ArrayList<Projectile>();
         coords = new Coordinate(x , y);
         attackDamage = 5;
-        attackSpeed = 1.0;
+        attackSpeed = 2.0;
         attackRange = 200;
         towerAttacker = new TowerAttackerService(this);
         towerAttacker.pollTower(BUILD_TIME);

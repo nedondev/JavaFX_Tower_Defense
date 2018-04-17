@@ -23,7 +23,7 @@ public class GameState implements Serializable{
     private int resources;                  //used for buying and upgrading tower
     private int level;                      //represents the current wave of monsters that are being spawned
     private int score;                      //score is calculated by awarding kill points and perfect level points
-    private int lives;;                     //numbers of monster escapes allowed before game ends
+    private int lives;                     //numbers of monster escapes allowed before game ends
     private ArrayList<Tower> playerTowers;  //holds all tower references on the map
     private ArrayList<Monster> monstersAlive; //holds monster references
 
@@ -99,7 +99,7 @@ public class GameState implements Serializable{
     }
 
     public boolean isStopped(){
-        if(state == IS_PAUSED){
+        if(state == IS_STOPPED){
             return true;
         }
         return false;
