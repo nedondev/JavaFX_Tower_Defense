@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 public class GameController {
 
     @FXML
+    private Label currentName;
+    @FXML
     private Label currentScore;
     @FXML
     private Label currentResources;
@@ -26,8 +28,9 @@ public class GameController {
 
     private GameManager gameManager;
 
-    public void setGameManager(GameManager gameManager){
+    public void setGameManager(GameManager gameManager, String name){
         this.gameManager = gameManager;
+        this.currentName.setText(name);
     }
 
     //set mouse clicks to buy and place tower

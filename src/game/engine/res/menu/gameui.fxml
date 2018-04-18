@@ -49,10 +49,10 @@
            GridPane.rowIndex="4"
            GridPane.columnIndex="4"
             />
-	<Label fx:id = "name"
-              GridPane.rowIndex="0"
-              GridPane.columnIndex="5"
-              />
+	<Label fx:id = "currentName"
+           GridPane.rowIndex="0"
+           GridPane.columnIndex="5"
+           />
     <Label fx:id = "currentResources"
               GridPane.rowIndex="1"
               GridPane.columnIndex="5"

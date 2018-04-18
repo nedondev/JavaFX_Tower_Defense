@@ -67,7 +67,7 @@ public class GameManager {
         gameScene = new Scene(gamePane);
         gameScene.getStylesheets().add(GameManager.class.getResource("res/menu/gamestyle.css").toExternalForm());
         gameController = loader.<GameController>getController();
-        gameController.setGameManager(this);
+        gameController.setGameManager(this, name);
 
         MenuNavigator.stage.setScene(gameScene);
         Monster.setPath(gameMap.getPath());
