@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author miner
  */
-public class state implements function<Object> {
+public class State implements Function<Object> {
 
     @Override
     public void save(Object data) throws IOException{

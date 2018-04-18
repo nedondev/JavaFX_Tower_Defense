@@ -5,14 +5,12 @@
  */
 package game.loadsave;
 
-import java.io.IOException;
-
 /**
  *
  * @author miner
  */
-public interface function<T> {
-    public void save(T data)throws IOException;
-    public T load()throws IOException;
+public interface Function<T> {
+    public void save(T data)throws Exception;
+    public T load()throws Exception;
     
 }

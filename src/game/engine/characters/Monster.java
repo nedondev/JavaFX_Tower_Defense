@@ -36,7 +36,7 @@ public class Monster {
         moveX = true;
         nodeDirection = 1;
         this.healthPoints = healthPoints;
-        movementSpeed = 2;
+        movementSpeed = 15;
         reward = 2;
         view = new Circle(path.get(0).getExactX() , path.get(0).getExactY() , radius);
         view.setFill(Color.RED);

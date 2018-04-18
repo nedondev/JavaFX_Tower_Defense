@@ -34,9 +34,16 @@ public class GameState implements Serializable{
         resources = 10000;
         level = 0;
         score = 0;
-        lives = 20;
+        lives = 0;
         playerTowers = new ArrayList<Tower>();
         monstersAlive = new ArrayList<Monster>();
+    }
+    
+    public GameState(String name, int resources, int level, int score){
+        this.name = name;
+        this.resources = resources;
+        this.level = level;
+        this.score = score;
     }
 
     //Overwrites current Game State
@@ -66,6 +73,10 @@ public class GameState implements Serializable{
     public void setState(int state) {
         this.state = state;
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
 
     //GETTERS
     public int getResources(){
@@ -86,10 +97,6 @@ public class GameState implements Serializable{
     
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isPaused(){

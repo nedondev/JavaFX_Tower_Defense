@@ -5,6 +5,7 @@ import game.MenuNavigator;
 import game.engine.characters.Monster;
 import game.engine.characters.Projectile;
 import game.engine.characters.Tower;
+import game.loadsave.Score;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.beans.property.LongProperty;
@@ -235,13 +236,21 @@ public class GameManager {
         game.setState(GameState.IS_STOPPED);
         gameLoop.stop();
         if(game.getLives() == 0){
+            ArrayList gameList = new ArrayList();
+            gameList.add(game);
+            Score score = new Score();
+            try{
+                score.save(gameList);
+            }catch(Exception e){
+                System.out.println("Save Exception on GameManager: " + e.getMessage());
+            }
+            
             FXMLLoader loader = new FXMLLoader(MenuNavigator.GAMEOVERUI);
             StackPane gamePane = new StackPane();
             Node gameUI = (Node)loader.load(MenuNavigator.GAMEOVERUI.openStream());
             gamePane.getChildren().add(gameUI);
             gameScene = new Scene(gamePane);
             gameScene.getStylesheets().add(GameManager.class.getResource("res/menu/gameover.css").toExternalForm());
-
             MenuNavigator.stage.setScene(gameScene);
         }
     }
@@ -297,17 +306,17 @@ public class GameManager {
         final LongProperty fpstimer = new SimpleLongProperty(0);
         final AnimationTimer timer = new AnimationTimer() {
             int timer = 3;
-            //long moreMon = -1;
+            long moreMon = -1;
 
             @Override
             public void handle(long timestamp) {
 
                 // Times each second
-                System.out.println(timestamp / 100000000+" "+secondUpdate.get());
+                //System.out.println(timestamp / 100000000+" "+secondUpdate.get());
                 if (timestamp/ 1000000000 != secondUpdate.get() ) {
                     timer--;
-                    if(timer > 11) {
-                        //moreMon = timestamp/ 100000000 + 2;
+                    if(timer > 3) {
+                        moreMon = timestamp/ 100000000 + 2;
                         createMonster(10);
                     }
                     else if(timer <= 0){
@@ -315,10 +324,10 @@ public class GameManager {
                         timer = 13;
                     }
                 }
-                /*if(moreMon == timestamp/ 100000000){
+                if(moreMon == timestamp/ 100000000){
                     createMonster(3);
                     moreMon = -1;
-                }*/
+                }
                 createProjectiles();
                 if(game.getLives() == 0){
                     try{
@@ -337,5 +346,4 @@ public class GameManager {
         gameLoop = timer;
         gameLoop.start();
     }
-
 }
