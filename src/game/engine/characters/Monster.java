@@ -31,12 +31,12 @@ public class Monster {
      * The health points increase as the game progresses to increase
      * the difficulty for the player.
      */
-    public Monster(int healthPoints){
+    public Monster(int healthPoints, int movement){
         pathFinished = false;
         moveX = true;
         nodeDirection = 1;
         this.healthPoints = healthPoints;
-        movementSpeed = 15;
+        movementSpeed = movement;
         reward = 2;
         view = new Circle(path.get(0).getExactX() , path.get(0).getExactY() , radius);
         view.setFill(Color.RED);

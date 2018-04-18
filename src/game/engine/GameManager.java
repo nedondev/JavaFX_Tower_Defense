@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.Random;
 import javafx.application.Platform;
 
 /**
@@ -147,8 +148,8 @@ public class GameManager {
      * The health points for the monster. Increases as
      * the game progresses.
      */
-    private void createMonster(int health){
-        game.getMonstersAlive().add(new Monster(health));
+    private void createMonster(int health, int movement){
+        game.getMonstersAlive().add(new Monster(health, movement));
         monsterLayer.getChildren().add(game.getMonstersAlive().get(game.getMonstersAlive().size() - 1).getView());
     }
 
@@ -306,6 +307,9 @@ public class GameManager {
         final LongProperty fpstimer = new SimpleLongProperty(0);
         final AnimationTimer timer = new AnimationTimer() {
             int timer = 3;
+            int movement;
+            int health;
+            Random rand = new Random();
             long moreMon = -1;
 
             @Override
@@ -315,17 +319,26 @@ public class GameManager {
                 //System.out.println(timestamp / 100000000+" "+secondUpdate.get());
                 if (timestamp/ 1000000000 != secondUpdate.get() ) {
                     timer--;
-                    if(timer > 3) {
-                        moreMon = timestamp/ 100000000 + 2;
-                        createMonster(10);
+                    if(timer > 5) {
+                        
+                        health = rand.nextInt(game.getLevel()) +1; 
+                        if(health % 2 == 0)moreMon = timestamp/ 100000000 + 2;
+                        movement = rand.nextInt(game.getLevel()) +1;
+                        if(movement > 15) movement = 15;
+                        
+                        createMonster(health, movement);
                     }
                     else if(timer <= 0){
                         game.setLevel(game.getLevel() + 1);
-                        timer = 13;
+                        timer = 15;
                     }
                 }
                 if(moreMon == timestamp/ 100000000){
-                    createMonster(3);
+                    health = rand.nextInt(game.getLevel()) +5; 
+                    movement = rand.nextInt(game.getLevel()) +1;
+                    if(movement > 20) movement = 20;
+                    
+                    createMonster(health, movement);
                     moreMon = -1;
                 }
                 createProjectiles();

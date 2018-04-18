@@ -31,10 +31,10 @@ public class GameState implements Serializable{
     //CONSTRUCTORS
     private GameState(){
         state = IS_RUNNING;
-        resources = 10000;
+        resources = 75;
         level = 0;
         score = 0;
-        lives = 0;
+        lives = 20;
         playerTowers = new ArrayList<Tower>();
         monstersAlive = new ArrayList<Monster>();
     }
