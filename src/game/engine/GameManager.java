@@ -6,6 +6,14 @@ import game.engine.characters.Monster;
 import game.engine.characters.Projectile;
 import game.engine.characters.Tower;
 import game.loadsave.Score;
+import game.loadsave.State;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.beans.property.LongProperty;
@@ -39,17 +47,19 @@ public class GameManager {
     private  GameState game;                        // Provides basic game states.
     private  Scene gameScene;                       // The main viewport
     private  GameController gameController;         // Handles fxml attributes (buttons and labels)
-    private  AnimationTimer gameLoop;               // Used for the gui thread
+    private  AnimationTimer gameLoop; 
+    
 
     /**
      * Initializes the game
      *
      * @throws java.io.IOException
      */
-    public void initialize(String name) throws java.io.IOException{
+    public void initialize(String name,int difficulty) throws java.io.IOException{
         // Initializes the game state
         game = GameState.getNewGame();
         game.setName(name);
+        game.setDiffculty(difficulty);
 
         // Generates the map with the given resolution
         gameMap = new TileMap(1280 ,800);
@@ -76,6 +86,43 @@ public class GameManager {
         startGameLoop();
     }
 
+    public void initializeLoad () throws java.io.IOException, ClassNotFoundException{
+       
+        State state = new State();
+        gameMap = new TileMap(1280 ,800);
+        Monster.setPath(gameMap.getPath());
+        game = state.load();
+        // Generates the map with the given resolution
+        gameMap = new TileMap(1280 ,800);
+
+        // Creates gui hierarchy
+        FXMLLoader loader = new FXMLLoader(MenuNavigator.GAMEUI);
+        StackPane gamePane = new StackPane();
+        Group tilemapGroup = new Group();
+        monsterLayer = new Group();
+        monsterLayer.getChildren().add(tilemapGroup);
+        tilemapGroup.getChildren().add(gameMap);
+        gamePane.getChildren().add(monsterLayer);
+
+        // Opens stream to get controller reference
+        Node gameUI = (Node)loader.load(MenuNavigator.GAMEUI.openStream());
+        gamePane.getChildren().add(gameUI);
+        gameScene = new Scene(gamePane);
+        gameScene.getStylesheets().add(GameManager.class.getResource("res/menu/gamestyle.css").toExternalForm());
+        gameController = loader.<GameController>getController();
+        gameController.setGameManager(this, game.getName());
+        for (Monster monster : game.getMonstersAlive()) {
+             monsterLayer.getChildren().add(monster.getView());
+        }
+        for (Tower tower: game.getPlayerTowers()) {
+             gameMap.setMapNode(tower.getX()/64,tower.getY()/64 , 7);
+        }
+       
+
+        MenuNavigator.stage.setScene(gameScene);
+        startGameLoop();
+    }
+    
     public  Scene getGameScene(){
         return gameScene;
     }
@@ -262,6 +309,7 @@ public class GameManager {
      */
     public void pauseGame(){
         game.setState(GameState.IS_PAUSED);
+        gameLoop.stop();
     }
     /**
      * Called when the game is started or the
@@ -269,6 +317,32 @@ public class GameManager {
      */
     public void resumeGame(){
         game.setState(GameState.IS_RUNNING);
+        gameLoop.start();
+    }
+    
+    public void saveGame() {
+        State state = new State();
+        try{
+            state.save(game);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        resumeGame();
+        /*
+        java.io.File file = new java.io.File("src/game/loadsave/state/savegame5.Ojb");
+        try {
+               
+                FileOutputStream f = new FileOutputStream(file);
+                 
+		ObjectOutputStream o = new ObjectOutputStream(f);
+                System.out.println("555");
+		o.writeObject(game);
+                
+		o.close();
+                f.close();
+		} catch(IOException e){
+                    e.printStackTrace();
+                }*/
     }
 
     /**
@@ -321,9 +395,9 @@ public class GameManager {
                     timer--;
                     if(timer > 5) {
                         
-                        health = rand.nextInt(game.getLevel()) +1; 
+                        health = rand.nextInt(game.getLevel()) +game.getDiffculty(); 
                         if(health % 2 == 0)moreMon = timestamp/ 100000000 + 2;
-                        movement = rand.nextInt(game.getLevel()) +1;
+                        movement = rand.nextInt(game.getLevel()) +game.getDiffculty();
                         if(movement > 15) movement = 15;
                         
                         createMonster(health, movement);
@@ -335,7 +409,7 @@ public class GameManager {
                 }
                 if(moreMon == timestamp/ 100000000){
                     health = rand.nextInt(game.getLevel()) +5; 
-                    movement = rand.nextInt(game.getLevel()) +1;
+                    movement = rand.nextInt(game.getLevel()) +game.getDiffculty();
                     if(movement > 20) movement = 20;
                     
                     createMonster(health, movement);

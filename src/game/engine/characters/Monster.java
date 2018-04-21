@@ -7,12 +7,13 @@ package game.engine.characters;
  */
 
 import game.engine.Coordinate;
+import java.io.Serializable;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 
-public class Monster {
+public class Monster implements Serializable{
     private static ArrayList<Coordinate> path;  // Used by all monsters for pathing
     private Circle view;                        // Graphical view of monster
     private final int radius = 10;              // Graphical size of monster
@@ -20,6 +21,7 @@ public class Monster {
     private int movementSpeed;                  // Determines time to complete path
     private int reward;                         // Monster death will trigger a resource reward
     private int nodeDirection;                  // Used for guiding the monster on the path
+
     private boolean moveX;                      // Used for monster pathing
     private boolean isDead;                     // Flag is signal monster removal
     private boolean pathFinished;               // Signals the monster finished the path alive.
@@ -55,10 +57,31 @@ public class Monster {
     public Circle getView(){
         return view;
     }
+    public int getNodeDirection() {
+        return nodeDirection;
+    }
     public boolean isDead(){
         return isDead;
     }
 
+    public void setNodeDirection(int nodeDirection) {
+        this.nodeDirection = nodeDirection;
+    }
+
+     public void setPosition(double x , double y){
+       view.setCenterX(x);
+       view.setCenterY(y);
+    }
+   
+
+    public boolean isMoveX() {
+        return moveX;
+    }
+    
+    public void setMoveX(boolean x) {
+        this.moveX = x;
+    }
+    
     public boolean isPathFinished(){
         return pathFinished;
     }

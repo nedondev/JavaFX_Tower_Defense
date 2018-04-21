@@ -17,8 +17,11 @@
             GridPane.rowIndex="1"
             alignment="TOP_CENTER"
             text="Tower Defense"
+            visible = "true"
             />
-	<HBox GridPane.columnIndex="1"
+	<HBox 
+          fx:id="Hbox1"
+          GridPane.columnIndex="1"
           GridPane.rowIndex="2"
           spacing="10"
           alignment="bottom_left">		
@@ -31,7 +34,51 @@
 		<TextField 
 				fx:id="txtName"  />		
 	</HBox>
-    <VBox GridPane.columnIndex="1"
+        <HBox 
+          fx:id="Hbox2"
+          GridPane.columnIndex="1"
+          GridPane.rowIndex="2"
+          spacing="10"
+          alignment="bottom_left"
+          visible = "false"
+        >		
+	<Button
+            fx:id = "eazy"
+            onAction="#eazyBox"
+            text = "Eazy"
+            prefWidth="120"
+            prefHeight="35"
+            
+            
+            />
+        <Button
+            fx:id = "normal"
+            onAction="#normalBox"
+            text = "Normal"
+            prefWidth="120"
+            prefHeight="35"
+            
+            />
+        <Button
+            fx:id = "hard"
+            onAction="#hardBox"
+            text = "Hard"
+            prefWidth="120"
+            prefHeight="35"
+            
+            />
+        <Button
+            fx:id = "exitButton2"
+            onAction="#returnMenu2"
+            text = "Exit"
+            prefWidth="120"
+            prefHeight="35"
+            
+            />		
+	</HBox>
+    <VBox 
+        fx:id="Vbox1"
+        GridPane.columnIndex="1"
           GridPane.rowIndex="3"
           spacing="10"
           alignment="CENTER_LEFT">
@@ -44,12 +91,14 @@
             />
         <Button
             fx:id = "loadGameButton"
+            onAction="#loadGame"
             text = "Load Game"
             prefWidth="120"
             prefHeight="35"
             />
         <Button
             fx:id = "leaderboardButton"
+            onAction="#showRank"
             text = "Leaderboard"
             prefWidth="120"
             prefHeight="35"
@@ -57,6 +106,7 @@
         <Button
             fx:id = "optionsButton"
             text = "Options"
+            onAction="#options"
             prefWidth="120"
             prefHeight="35"
             />
@@ -69,4 +119,42 @@
             />
 
     </VBox>
+    <VBox 
+        fx:id="Vbox2"
+        GridPane.columnIndex="1"
+          GridPane.rowIndex="2"
+          spacing="10"
+          alignment="CENTER_LEFT"
+            visible ="false">
+       
+    <Label
+            fx:id="label1"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="1"
+            alignment="TOP_CENTER"
+            text=""
+            />
+        <Label
+            fx:id="label2"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="2"
+            alignment="TOP_CENTER"
+            text=""
+            />
+        <Label
+            fx:id="labelsm1"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="3"
+            alignment="TOP_CENTER"
+            text=""
+            />
+    <Button
+            fx:id = "exitButton1"
+            onAction="#returnMenu"
+            text = "Exit"
+            prefWidth="120"
+            prefHeight="35"
+            
+            />
+     </VBox>
 </GridPane>

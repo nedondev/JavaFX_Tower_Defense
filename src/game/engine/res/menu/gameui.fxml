@@ -23,6 +23,28 @@
             prefHeight="80"
             prefWidth="80"
             />
+    
+    <Button fx:id = "openResumeButton"
+            onAction = "#Resume"
+            GridPane.rowIndex="0"
+            GridPane.columnIndex="1"
+            GridPane.rowSpan="4"
+            prefHeight="80"
+            prefWidth="80"
+            visible = "false"
+            />
+    
+     <Button fx:id = "openSaveButton"
+            onAction = "#SaveGame"
+            GridPane.rowIndex="0"
+            GridPane.columnIndex="0"
+            GridPane.rowSpan="4"
+            prefHeight="80"
+            prefWidth="80"
+            visible = "false"
+            />
+    
+    
 			
 	<Label fx:id = "nameLabel"
            text = "Name: "

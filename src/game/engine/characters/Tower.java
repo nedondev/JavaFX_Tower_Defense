@@ -3,6 +3,7 @@ package game.engine.characters;
 
 import game.engine.Coordinate;
 import game.engine.services.TowerAttackerService;
+import java.io.Serializable;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
  * Each tower spawns a worker thread to poll for nearby monsters
  * to make attacks on.
  */
-public class Tower {
-    private static final int BUILD_TIME = 10000;    // Time used to build tower.
+public class Tower implements Serializable{
+    private static final int BUILD_TIME = 0;    // Time used to build tower.
     private int attackDamage;                       // Determines amount of health to reduce from monsters per attack
     private double attackSpeed;                     // Determines the time a tower must wait after an attack
     private int attackRange;                        // Sets the minimum range the tower can make attacks in

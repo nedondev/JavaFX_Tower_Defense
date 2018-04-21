@@ -60,7 +60,7 @@ public class GameOverController implements Initializable {
             int i;
             for(i = 2; i < scoreList.size() -1; i++){
                 if(scoreList.get(i) == scoreList.get(scoreList.size()-1)){
-                    if(labelsm1.getText().equals("")){
+                    if(labelsm1.getText().length() == 0){
                         labelsm1.setText(scoreList.get(i).getName()+ " "+
                             scoreList.get(i).getResources()+ " "+
                             scoreList.get(i).getLevel()+ " "+

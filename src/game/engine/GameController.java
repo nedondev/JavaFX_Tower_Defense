@@ -7,6 +7,7 @@ package game.engine;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
@@ -25,6 +26,14 @@ public class GameController {
     private Label currentLives;
     @FXML
     private Label timeLabel;
+    
+    @FXML
+    private Button openResumeButton;
+    @FXML
+    private Button openMenuButton;
+    @FXML
+    private Button openSaveButton;
+    
 
     private GameManager gameManager;
 
@@ -39,8 +48,32 @@ public class GameController {
     }
     public void openMenu(){
         gameManager.pauseGame();
+        System.out.println("111");
+        openResumeButton.setVisible(true);
+        openSaveButton.setVisible(true);
+        openMenuButton.setVisible(false);
         //open Game Menu
     }
+    
+    public void Resume(){
+        gameManager.resumeGame();
+        System.out.println("222");
+        openResumeButton.setVisible(false);
+        openSaveButton.setVisible(false);
+        openMenuButton.setVisible(true);
+        //open Game Menu
+    }
+    
+     public void SaveGame(){
+        gameManager.saveGame();
+        System.out.println("333");
+        openResumeButton.setVisible(false);
+        openSaveButton.setVisible(false);
+        openMenuButton.setVisible(true);
+        //open Game Menu
+    }
+    
+    
     public void updateLabels(String currentLevel , String currentLives , String currentResources , String currentScore , String timeLabel){
         this.currentLevel.setText(currentLevel);
         this.currentLives.setText(currentLives);

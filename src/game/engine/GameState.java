@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class GameState implements Serializable{
+public class GameState implements Serializable {
 
     //game state flags
     public static final int IS_RUNNING = 1;    //game is active
@@ -24,6 +24,8 @@ public class GameState implements Serializable{
     private int level;                      //represents the current wave of monsters that are being spawned
     private int score;                      //score is calculated by awarding kill points and perfect level points
     private int lives;                     //numbers of monster escapes allowed before game ends
+    private int diffculty; 
+
     private ArrayList<Tower> playerTowers;  //holds all tower references on the map
     private ArrayList<Monster> monstersAlive; //holds monster references
     private String name;
@@ -77,6 +79,10 @@ public class GameState implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+    
+    public void setDiffculty(int diffculty) {
+        this.diffculty = diffculty;
+    }
 
     //GETTERS
     public int getResources(){
@@ -98,6 +104,12 @@ public class GameState implements Serializable{
     public String getName() {
         return name;
     }
+
+    public int getDiffculty() {
+        return diffculty;
+    }
+
+    
 
     public boolean isPaused(){
         if(state == IS_PAUSED){
