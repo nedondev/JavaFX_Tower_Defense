@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,6 +26,8 @@ public class MainMenuController {
     TextField txtName;
     @FXML
     Label tdlabel;
+    @FXML
+    Label tdlabel2;
     @FXML
      HBox Hbox1;
     @FXML
@@ -46,6 +50,8 @@ public class MainMenuController {
      Button normal;
     @FXML
      Button hard;
+    @FXML
+     GridPane gridPane;
 
     GameManager gameManager = new GameManager();
     int  difficulty=1;
@@ -53,7 +59,7 @@ public class MainMenuController {
     
     
     public void showRank(){
-        System.out.println("111");
+        gridPane.setAlignment(Pos.TOP_LEFT);
         
         ArrayList<GameState> scoreList = new ArrayList();
         Score score = new Score();
@@ -78,8 +84,8 @@ public class MainMenuController {
                             scoreList.get(i).getLevel()+ " "+
                             scoreList.get(i).getScore()+ "\n");
             }
-         
-        tdlabel.setText("LeaderBoard");
+        tdlabel.setVisible(false);
+        tdlabel2.setVisible(true);
         Hbox1.setVisible(false);
         Hbox2.setVisible(false);
         Vbox1.setVisible(false);
@@ -116,7 +122,8 @@ public class MainMenuController {
     }
     
     public void returnMenu(){
-        tdlabel.setText("Tower Defense");
+        tdlabel.setVisible(true);
+        tdlabel2.setVisible(false);
         Hbox1.setVisible(true);
         Vbox1.setVisible(true);
         Vbox2.setVisible(false);
@@ -125,6 +132,7 @@ public class MainMenuController {
         labelsm1.setText("");
         exitButton1.setVisible(false);
         Hbox2.setVisible(false);
+        gridPane.setAlignment(Pos.TOP_LEFT);
     }
     
     public void returnMenu2(){
@@ -138,6 +146,7 @@ public class MainMenuController {
         labelsm1.setText("");
         exitButton1.setVisible(false);
         Hbox2.setVisible(false);
+        gridPane.setAlignment(Pos.TOP_LEFT);
     }
     
     public void options(){

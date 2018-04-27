@@ -17,6 +17,10 @@
     -fx-font-size: 40px;
     -fx-font-family: "Arial Black";
 }
+#tdlabel2 {
+    -fx-font-size: 40px;
+    -fx-font-family: "Arial Black";
+}
 
 #namelabel {
     -fx-font-size: 24px;
@@ -37,4 +41,25 @@
     -fx-font-size: 24px;
     -fx-font-family: "Arial Black";
     -fx-fill: #818181;
+}
+
+#labelName {
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: white;
+}
+#labelResources {
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: white;
+}
+#labelLevel {
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: white;
+}
+#labelScore {
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: white;
 }

@@ -7,7 +7,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<GridPane fx:controller="game.MainMenuController"
+<GridPane 
+          fx:id = "gridPane"
+          fx:controller="game.MainMenuController"
           xmlns:fx="http://javafx.com/fxml" alignment="TOP_LEFT" hgap="10" vgap="10">
           <padding><Insets top="100" right="50" bottom="10" left="25"/></padding>
 
@@ -19,10 +21,18 @@
             text="Tower Defense"
             visible = "true"
             />
+    <Label
+            fx:id="tdlabel2"
+            GridPane.columnIndex="2"
+            GridPane.rowIndex="0"
+            alignment="TOP_CENTER"
+            text="Leader Board"
+            visible = "false"
+            />
 	<HBox 
           fx:id="Hbox1"
           GridPane.columnIndex="1"
-          GridPane.rowIndex="2"
+          GridPane.rowIndex="1"
           spacing="10"
           alignment="bottom_left">		
 		<Label
@@ -121,13 +131,45 @@
     </VBox>
     <VBox 
         fx:id="Vbox2"
-        GridPane.columnIndex="1"
-          GridPane.rowIndex="2"
+        GridPane.columnIndex="2"
+          GridPane.rowIndex="1"
           spacing="10"
-          alignment="CENTER_LEFT"
+          alignment="TOP_CENTER"
             visible ="false">
-       
-    <Label
+       <HBox GridPane.columnIndex="1"
+            GridPane.rowIndex="0"
+            alignment="TOP_CENTER"
+            spacing="10">
+            <Label
+            fx:id="labelName"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="1"
+            alignment="TOP_CENTER"
+            text="Name"
+            />
+            <Label
+            fx:id="labelResources"
+            GridPane.columnIndex="2"
+            GridPane.rowIndex="1"
+            alignment="TOP_CENTER"
+            text="Resources"
+            />
+            <Label
+            fx:id="labelLevel"
+            GridPane.columnIndex="3"
+            GridPane.rowIndex="1"
+            alignment="TOP_CENTER"
+            text="Level"
+            />
+            <Label
+            fx:id="labelScore"
+            GridPane.columnIndex="4"
+            GridPane.rowIndex="1"
+            alignment="TOP_CENTER"
+            text="Score"
+            />
+        </HBox>
+        <Label
             fx:id="label1"
             GridPane.columnIndex="1"
             GridPane.rowIndex="1"
@@ -148,7 +190,7 @@
             alignment="TOP_CENTER"
             text=""
             />
-    <Button
+        <Button
             fx:id = "exitButton1"
             onAction="#returnMenu"
             text = "Exit"
