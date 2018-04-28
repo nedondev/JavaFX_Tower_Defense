@@ -13,6 +13,18 @@
     -fx-background-position: center;
 }
 
+#openSaveButton{
+    -fx-background-image: url('icon/SAVE_ICON.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#openResumeButton{
+    -fx-background-image: url('icon/RESUME_ICON.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 #timeLabel{
     -fx-font-size: 20;
 }
